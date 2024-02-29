@@ -23,5 +23,14 @@ The followings are generated files
 
 ## Training
 
+```angular2html
+python pretrain.py
+```
 
-## Testing
+--pretrain the model and save the checkpoint.
+
+```angular2html
+python train_vqa.py --resume True --resume_fold <path of saved checkpoint>
+```
+
+--train VQA with the pretrained model and evaluate the results.
