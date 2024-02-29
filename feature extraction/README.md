@@ -32,7 +32,7 @@ python train_mimic_disease.py
 
 ## Feature extraction and graph generation
 
-After model training, we use the saved checkpoints to extract image features and generate dynamic graphs for each image.
+After model training, we use the saved checkpoints to extract image features and generate dynamic graphs for each image. The final features and graphs are saved as file `feat_graph_labels.hdf5`
 
 ```angular2html
 python get_mimic_graph_feats.py
