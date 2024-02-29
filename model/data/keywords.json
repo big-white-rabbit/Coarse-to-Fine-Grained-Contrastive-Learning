@@ -1,0 +1,78 @@
+[
+  {
+    "abnormality_words": [
+      "lung opacity",
+      "fracture",
+      "pneumonia",
+      "pleural thickening",
+      "edema",
+      "cardiomegaly",
+      "calcification",
+      "enlargement of the cardiac silhouette",
+      "atelectasis",
+      "pleural effusion",
+      "blunting of the costophrenic angle",
+      "hilar congestion",
+      "pneumothorax",
+      "consolidation",
+      "vascular congestion",
+      "heart failure",
+      "air collection",
+      "granuloma",
+      "scoliosis",
+      "emphysema",
+      "tortuosity of the thoracic aorta",
+      "contusion",
+      "hernia",
+      "pneumomediastinum",
+      "hematoma"
+    ]
+  },
+  {
+    "presence_words": [
+      "yes",
+      "no"
+    ]
+  },
+  {
+    "view_words": [
+      "PA view",
+      "AP view"
+    ]
+  },
+  {
+    "location_words": [
+      "small",
+      "increasing",
+      "mild",
+      "mild to moderate",
+      "moderate",
+      "mildly",
+      "minimal",
+      "subtle",
+      "moderately",
+      "severe",
+      "small moderate",
+      "moderate to severe"
+    ]
+  },
+  {
+    "level_words": [
+      "interstitial",
+      "layering",
+      "linear",
+      "multifocal",
+      "scattered",
+      "focal",
+      "compressive",
+      "dense",
+      "calcified",
+      "patchy",
+      "plate-like",
+      "parenchymal",
+      "ground-glass",
+      "focal parenchymal",
+      "patchy linear"
+    ]
+  }
+]

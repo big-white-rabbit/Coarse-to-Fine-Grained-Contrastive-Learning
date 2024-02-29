@@ -1,0 +1,42 @@
+exp_name: 'mimic-diff'
+gpu_id: [0]
+logger:
+    display_id: 9908
+model:
+    change_detector:
+        input_dim: 2052
+        feat_dim: 1026
+        att_dim: 1024
+        att_head: 4
+        nongt_dim: 52
+        spa_label_num: 11
+        sem_label_num: 3
+        dir_num: 2
+        pos_emb_dim: 64
+
+
+data:
+    dataset: 'rcc_dataset_mimic'
+    vocab_json: "./data/vocab_mimic_VQA.json"
+    h5_label_file: 'data/VQA_mimic_dataset.h5'
+    splits_json: './data/splits_mimic_VQA.json'
+    num_workers: 0
+    train:
+        batch_size: 128
+    val:
+        batch_size: 128
+        seq_per_img: 1
+    test:
+        batch_size: 128
+        seq_per_img: 1
+train:
+    max_iter: 400000 # original 30000
+    max_epoch: 20 # original 15
+    snapshot_interval: 2000
+    optim:
+        type: 'adam'
+        lr: 0.000006
+        weight_decay: 0.00001
+        step_size: 15 #epoch
+        gamma: 0.1
+
