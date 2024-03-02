@@ -1,5 +1,19 @@
 # Coarse-to-Fine-Grained-Contrastive-Learning
-Chest X-ray Differential Medical Visual Question Answering (Diff-MedVQA) is a novel multi-modal task designed to answer questions about diseases, especially their differences, based on a main image and a reference image. Compared to the widely explored visual question answering in the general domain, Diff-MedVQA presents two unique issues: (1) variations in medical images are often subtle, and (2) it is impossible for two chest X-rays taken at different times to be at exactly the same view. These issues significantly hinder the ability to answer questions about medical image differences accurately. To address this, we introduce a novel method named Coarse-to-Fine Granularity Contrastive Learning. Specifically, this method first leverages MCCFormer to extract global difference features between two chest X-rays, and utilizes the organ-disease scene graph method to extract fine-grained anatomical difference features within the X-rays, thus mitigating issues related to changes in imaging views. Subsequently, a cross-attention module is employed to capture question-related coarse-to-fine difference features, and contrastive learning is used to optimize the similarity between these features and the corresponding symptom/difference answer text features. Finally, the aligned difference features are used for decoding to generate answers. Our proposed method significantly outperforms the baseline MCCFormer on the public dataset MIMIC-CXR-Diff and achieves state-of-the-art performance.
+## Abstract
+Chest X-ray Differential Medical Visual Question Answering (Diff-MedVQA) is a novel multi-modal task designed to answer 
+questions about diseases, especially their differences, based on a main image and a reference image. Compared to the 
+widely explored visual question answering in the general domain, Diff-MedVQA presents two unique issues: 
+(1) variations in medical images are often subtle, and 
+(2) it is impossible for two chest X-rays taken at different times to be at exactly the same view. 
+These issues significantly hinder the ability to answer questions about medical image differences accurately. 
+To address this, we introduce a novel method named Coarse-to-Fine Granularity Contrastive Learning. Specifically, this 
+method first leverages MCCFormer to extract global difference features between two chest X-rays, and utilizes the 
+organ-disease scene graph method to extract fine-grained anatomical difference features within the X-rays, thus 
+mitigating issues related to changes in imaging views. Subsequently, a cross-attention module is employed to capture 
+question-related coarse-to-fine difference features, and contrastive learning is used to optimize the similarity between
+these features and the corresponding symptom/difference answer text features. Finally, the aligned difference features 
+are used for decoding to generate answers. Our proposed method significantly outperforms the baseline MCCFormer on the 
+public dataset MIMIC-CXR-Diff and achieves state-of-the-art performance.
 
 ![structure](structure.png)
 

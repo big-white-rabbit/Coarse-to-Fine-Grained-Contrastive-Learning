@@ -164,11 +164,21 @@ class ChangeDetector(nn.Module):
         # question_cls = torch.argmax(question_choice, dim=-1).bool()
 
         # =================================ITC====================================
+        with torch.no_grad():
+            text_sim = torch.zeros(batch_size, batch_size).to(input_1.device)
+            keywords_token_ids = keywords_token.input_ids.clone()
+            for i in range(keywords_token_ids.size(0)):
+                for j in range(i, keywords_token_ids.size(0)):
+                    if keywords_token_ids[i].equal(keywords_token_ids[j]):
+                        text_sim[i, j] = 1
+            self.temp.clamp_(0.001,0.5)
+            gt_matrix = text_sim
+
         image_feat = self.contrastive_proj(question_embed.last_hidden_state[:, 0, :])
         keywords_len = keywords_token.attention_mask.sum(dim=1) - 2
         keywords_embeds = self.text_encoder.embeddings(keywords_token.input_ids)[:, 1:, :]
-        local_loss = gloria.local_loss(question_embed.last_hidden_state[:, 1:, :], keywords_embeds, keywords_len)
-        global_loss = gloria.global_loss(image_feat, torch.mean(keywords_embeds, dim=1))
+        local_loss = gloria.local_loss(question_embed.last_hidden_state[:, 1:, :], keywords_embeds, keywords_len, gt_matrix)
+        global_loss = gloria.global_loss(image_feat, torch.mean(keywords_embeds, dim=1), gt_matrix)
         loss_cl = local_loss + global_loss
 
         # ===============================ITM===================================

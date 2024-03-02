@@ -62,11 +62,10 @@ def attention_fn(query, context, temp1):
     return weightedContext, attn.view(batch_size, -1, sourceL)
 
 
-def global_loss(cnn_code, rnn_code, eps=1e-8, temp3=10.0):
+def global_loss(cnn_code, rnn_code, labels, eps=1e-8, temp3=10.0):
     # cnn_code  batch_size, cnn_len, dim
     # rnn_code  batch_size, rnn_len, dim
     batch_size = cnn_code.shape[0]
-    labels = Variable(torch.LongTensor(range(batch_size))).to(cnn_code.device)
 
     if cnn_code.dim() == 2:
         cnn_code = cnn_code.unsqueeze(0)
@@ -83,13 +82,13 @@ def global_loss(cnn_code, rnn_code, eps=1e-8, temp3=10.0):
     scores0 = scores0.squeeze()
 
     scores1 = scores0.transpose(0, 1)
-    loss0 = nn.CrossEntropyLoss()(scores0, labels)
-    loss1 = nn.CrossEntropyLoss()(scores1, labels)
+    loss0 = nn.BCEWithLogitsLoss()(scores0, labels)
+    loss1 = nn.BCEWithLogitsLoss()(scores1, labels.transpose(0, 1))
     return (loss0 + loss1) / 2
 
 
 def local_loss(
-    img_features, words_emb, cap_lens, temp1=4.0, temp2=5.0, temp3=10.0, agg="sum"
+    img_features, words_emb, cap_lens, labels, temp1=4.0, temp2=5.0, temp3=10.0, agg="sum"
 ):
 
     batch_size = img_features.shape[0]
@@ -135,8 +134,6 @@ def local_loss(
     similarities = similarities * temp3
     similarities1 = similarities.transpose(0, 1)  # [48, 48]
 
-    labels = Variable(torch.LongTensor(range(batch_size))).to(similarities.device)
-
-    loss0 = nn.CrossEntropyLoss()(similarities, labels)  # labels: arange(batch_size)
-    loss1 = nn.CrossEntropyLoss()(similarities1, labels)
+    loss0 = nn.BCEWithLogitsLoss()(similarities, labels)  # labels: arange(batch_size)
+    loss1 = nn.BCEWithLogitsLoss()(similarities1, labels.transpose(0, 1))
     return (loss0 + loss1) / 2
